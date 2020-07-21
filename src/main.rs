@@ -11,7 +11,7 @@ fn main() {
         2 => println!("Get descriptor: \"{}\"", args[1]),
         _ => {println!("Specify only one file or adress in format <host:port>"); return;},
     };
-    let f = match File::open(&args[1]) {
+    let _f = match File::open(&args[1]) {
         Ok(f) =>    {println!("File was found");
                     parse_file(f)},
         Err(_e) =>   {println!("No file was found, proceed to connect to the server");
