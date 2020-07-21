@@ -19,7 +19,7 @@ fn main() {
             println!("File was found");
             parse_file(f)
         }
-        Err(_e) => {
+        Err(_err) => {
             println!("No file was found, proceed to connect to the server");
             parse_server(&args[1]);
         }
