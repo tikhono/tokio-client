@@ -42,7 +42,7 @@ fn parse_file(mut file: File) {
         }
     };
     let v: Vec<&str> = contents.trim().split(|c| c == '\n').collect();
-    let cap = match v[0].parse::<usize>() {
+    let numbers_count = match v[0].parse::<u8>() {
         Ok(ok) if ok <= 0 => {
             println!("Numbers count cannot be 0 or less");
             return;
@@ -54,11 +54,11 @@ fn parse_file(mut file: File) {
         }
     };
     let mut numbers: Vec<i64> = Vec::new();
-    if v.len() - 1 < cap {
+    if v.len() - 1 < numbers_count as usize {
         println!("Not enough data");
         return;
     }
-    for n in 0..(std::cmp::min(v.len() - 1, cap)) {
+    for n in 0..(std::cmp::min(v.len() - 1, numbers_count as usize)) {
         let num = match v[(n + 1) as usize].parse::<i64>() {
             Ok(ok) => ok,
             Err(_err) => {
@@ -80,7 +80,7 @@ async fn parse_server(addr: &String) {
             return;
         }
     };
-    let cap: i64 = match stream.read_i64().await {
+    let numbers_count: u8 = match stream.read_u8().await {
         Ok(ok) if ok <= 0 => {
             println!("Numbers count cannot be 0 or less");
             return;
@@ -91,8 +91,8 @@ async fn parse_server(addr: &String) {
             return;
         }
     };
-    let mut numbers = Vec::<i64>::with_capacity(cap as usize);
-    numbers.resize(cap as usize, 0);
+    let mut numbers = Vec::<i64>::with_capacity(numbers_count as usize);
+    numbers.resize(numbers_count as usize, 0);
     for i in &mut numbers {
         *i = match stream.read_i64().await {
             Ok(ok) => ok,
