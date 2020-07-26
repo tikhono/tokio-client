@@ -28,7 +28,11 @@ fn main() {
 
 fn process(numbers: Vec<i64>) {
     for i in numbers {
-        println!("{:.4}", (i as f64).sqrt());
+        if i < 0 {
+            println!("{:.4} * i", (i.abs() as f64).sqrt());
+        } else {
+            println!("{:.4}", (i as f64).sqrt());
+        }
     }
 }
 
