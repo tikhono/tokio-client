@@ -28,7 +28,18 @@ fn main() {
 
 fn process(numbers: Vec<i64>) {
     for i in numbers {
-        if i < 0 {
+        if i == i64::MIN {
+            println!("3037000499.9760 * i");
+        //Because i64::min.abs() is urepresentable without using extentions
+        //and there is need to get apropriet value for this case I decided
+        //to use hardcoded value.
+        //Another aprrouch is to use i64::max for both i64::max and
+        //i64::min.abs() because with current prescision there is same
+        //result for both of them.
+        //println!("{:.4} * i", (i64::max as f64).sqrt());
+        //or
+        //println!("{:.4} * i", ((i + 1).abs() as f64).sqrt());
+        } else if i < 0 {
             println!("{:.4} * i", (i.abs() as f64).sqrt());
         } else {
             println!("{:.4}", (i as f64).sqrt());
